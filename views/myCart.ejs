@@ -1,0 +1,44 @@
+<%- include("./partials/header") %>
+
+<div class="min-h-screen bg-red-100  p-8">
+    
+
+    <div class="space-y-6 mt-[5vmax] max-w-4xl mx-auto">
+        <% order.forEach((elem) => { %>
+            <div class="flex items-center bg-white  p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                <!-- Image -->
+                <img class="h-24 w-24 object-cover rounded-md" src="/images/<%= elem.foodImage %>" alt="Image of <%= elem.foodName %>">
+
+                <!-- Item Details -->
+                <div class="ml-4 flex-grow">
+                    <h2 class="text-xl font-semibold text-gray-800"><%= elem.foodName %></h2>
+                    <p class="text-gray-600">₹<%= elem.foodPrice %> each</p>
+                    <p class="text-gray-600 font-medium">Quantity: <%= elem.quantity %></p>
+                </div>
+
+                <!-- Quantity Controls -->
+                <div class="flex items-center space-x-2">
+                    <a href="/profile/increment/<%= elem._id %>/<%= elem.foodId %>" class="bg-green-500 text-white p-2 rounded-full hover:bg-green-600 transition">
+                        <i class="ri-add-line"></i>
+                    </a>
+                    <a href="/profile/decrement/<%= elem._id %>/<%= elem.foodId %>" class="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition">
+                        <i class="ri-subtract-fill"></i>
+                    </a>
+                    <a href="/profile/deleteOrder/<%= elem._id %>/<%= elem.foodId %>" class="bg-gray-400 text-white p-2 rounded-full hover:bg-gray-500 transition">
+                        <i class="ri-close-line"></i>
+                    </a>
+                </div>
+            </div>
+        <% }) %>
+
+        <!-- Total Price and Payment Button -->
+        <div class="text-right mt-6">
+            <h2 class="text-2xl font-semibold text-gray-800">Total: ₹<%= BasePrice %></h2>
+            <a href="/profile/paymentPage" class="inline-block mt-4 px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">
+                Make Payment
+            </a>
+        </div>
+    </div>
+</div>
+
+<%- include("./partials/footer") %>

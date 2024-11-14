@@ -1,0 +1,21 @@
+<%- include("./partials/header") %>
+
+<div class="min-h-screen bg-gray-100 p-8">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Food Items</h1>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <% food.forEach((elem) => { %>
+            <a href="/profile/selectFood/<%= elem._id %>" class="block bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden">
+                <div class="p-4">
+                    <h1 class="text-xl font-semibold text-gray-800 mb-2">
+                        <%= elem.foodName %>
+                    </h1>
+                    <img src="/images/<%= elem.foodImage %>" alt="Image of <%= elem.foodName %>" class="w-full h-48 object-contain rounded-md mb-4">
+                    <h2 class="text-lg font-medium text-gray-600">₹<%= elem.foodPrice %></h2>
+                </div>
+            </a>
+        <% }) %>
+    </div>
+</div>
+
+<%- include("./partials/footer") %>

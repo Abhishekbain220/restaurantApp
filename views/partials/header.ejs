@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+
+<body>
+    <nav class="fixed top-0 left-0 right-0 bg-white text-black  shadow-md z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo or Brand Name -->
+                <a href="/" class="text-2xl font-bold text-red-700">Delight Joy</a>
+                
+                <!-- Links for different user roles -->
+                <div class="hidden md:flex space-x-4">
+                    <% if(user && user.role == "owner") { %>
+                        <a href="/profile" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Home</a>
+                        <a href="/profile/foodItems" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Food Items</a>
+                        <a href="/profile/addItems" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Add Items</a>
+                        <a href="/users/updateUser" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Update User</a>
+                        <a href="/users/logout" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Logout</a>
+                        <a href="/profile/deleteUser" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Delete User</a>
+                    <% } else if(user && user.role == "customer") { %>
+                        <a href="/profile" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Home</a>
+                        <a href="/bookTable" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Book a Table</a>
+                        <a href="/profile/onlineOrder" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Online Order</a>
+                        <a href="/profile/myCart" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">My Cart</a>
+                        <a href="/users/updateUser" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Update User</a>
+                        <a href="/users/logout" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Logout</a>
+                        <a href="/profile/deleteUser" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Delete User</a>
+                    <% } else { %>
+                        <a href="/users/register" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Register</a>
+                        <a href="/users/login" class="hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Login</a>
+                    <% } %>
+                </div>
+    
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-black focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden px-4 pb-4 space-y-2 hidden bg-white">
+            <% if(user && user.role == "owner") { %>
+                <a href="/profile" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Home</a>
+                <a href="/profile/foodItems" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Food Items</a>
+                <a href="/profile/addItems" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Add Items</a>
+                <a href="/users/updateUser" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Update User</a>
+                <a href="/users/logout" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Logout</a>
+                <a href="/profile/deleteUser" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Delete User</a>
+            <% } else if(user && user.role == "customer") { %>
+                <a href="/profile" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Home</a>
+                <a href="/bookTable" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Book a Table</a>
+                <a href="/profile/onlineOrder" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Online Order</a>
+                <a href="/profile/myCart" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">My Cart</a>
+                <a href="/users/updateUser" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Update User</a>
+                <a href="/users/logout" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Logout</a>
+                <a href="/profile/deleteUser" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Delete User</a>
+                
+            <% } else { %>
+                <a href="/users/register" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Register</a>
+                <a href="/users/login" class="block hover:bg-red-700 hover:text-white px-3 py-2 rounded-md">Login</a>
+            <% } %>
+            
+        </div>
+    </nav>
+    
+    <script>
+        // Toggle mobile menu visibility
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+    
