@@ -26,7 +26,8 @@ router.get('/addItems', isLoggedIn, verifyUser, function (req, res, next) {
   })
 });
 router.post('/addItems', isLoggedIn, upload.single("foodImage"), verifyUser, async function (req, res, next) {
-  let { foodName, foodPrice } = req.body
+  try {
+    let { foodName, foodPrice } = req.body
   let food = await Food.create({
     foodName,
     foodPrice,
@@ -34,8 +35,10 @@ router.post('/addItems', isLoggedIn, upload.single("foodImage"), verifyUser, asy
 
 
   })
-  await food.save()
   res.redirect("/profile/foodItems")
+  } catch (error) {
+    console.log(error)
+  }
 
 });
 router.get('/foodItems', isLoggedIn, async function (req, res, next) {
