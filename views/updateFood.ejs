@@ -22,14 +22,14 @@
             <!-- Current Image Preview -->
             <div class="mb-4">
                 <label class="block text-gray-600 font-medium mb-1">Current Image</label>
-                <img src="/images/<%= food.foodImage %>" alt="Image of <%= food.foodName %>" 
+                <img src="<%= food.foodImage %>" alt="Image of <%= food.foodName %>" 
                      class="w-full h-48 object-cover rounded-md mb-2 shadow">
             </div>
 
             <!-- Upload New Image -->
             <div>
                 <label for="foodImage" class="block text-gray-600 font-medium mb-1">Update Image</label>
-                <input type="file" name="foodImage" 
+                <input type="url" name="foodImage" 
                        class="w-full text-gray-700 bg-white border rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500">
             </div>
 

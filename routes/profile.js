@@ -181,7 +181,6 @@ router.get('/onlineOrder', isLoggedIn, verifyCustomer, async function (req, res,
 });
 router.get('/deleteFood/:foodId', isLoggedIn, verifyUser, async function (req, res, next) {
   let food = await Food.findByIdAndDelete(req.params.foodId)
-  await fs.unlinkSync(path.join(global, food.foodImage))
   res.redirect("/profile/foodItems")
 });
 router.get('/updateFood/:foodId', isLoggedIn, verifyUser, async function (req, res, next) {
@@ -194,24 +193,21 @@ router.get('/updateFood/:foodId', isLoggedIn, verifyUser, async function (req, r
 router.post('/updateFood/:foodId', isLoggedIn, upload.single("foodImage"), verifyUser, async function (req, res, next) {
   let food = await Food.findByIdAndUpdate(req.params.foodId, {
     foodName: req.body.foodName,
-    foodPrice: req.body.foodPrice
-
+    foodPrice: req.body.foodPrice,
+    foodImage:req.body.foodImage
 
   })
-  let order=await Order.findOneAndUpdate({
-    foodName:food.foodName
-  },{
-    foodName:req.body.filename,
-    foodPrice:req.body.foodPrice
-  })
-  if (req.file) {
-    fs.unlinkSync(path.join(global, food.foodImage))
-    food.foodImage = req.file.filename
-    order.foodImage=req.file.filename
-
-
+  if(Order){
+    let order=await Order.findOneAndUpdate({
+      foodName:food.foodName
+    },{
+      foodName:req.body.foodName,
+      foodPrice:req.body.foodPrice,
+      foodImage:req.body.foodImage
+    })
+    
+    
   }
-  await order.save()
   await food.save()
 
   res.redirect(`/profile/selectFood/${req.params.foodId}`)
@@ -237,7 +233,6 @@ router.get('/deleteUser', isLoggedIn, async function (req, res, next) {
     if (food) {
       food.forEach(async (elem) => {
         await elem.deleteOne()
-        fs.unlinkSync(path.join(global, elem.foodImage))
 
       })
     }
