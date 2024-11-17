@@ -35,6 +35,7 @@ router.post('/addItems', isLoggedIn, upload.single("foodImage"), verifyUser, asy
 
 
   })
+  await food.save()
   res.redirect("/profile/foodItems")
   } catch (error) {
     console.log(error)
