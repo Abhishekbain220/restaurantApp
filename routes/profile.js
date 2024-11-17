@@ -27,12 +27,11 @@ router.get('/addItems', isLoggedIn, verifyUser, function (req, res, next) {
 });
 router.post('/addItems', isLoggedIn, upload.single("foodImage"), verifyUser, async function (req, res, next) {
   try {
-    let { foodName, foodPrice } = req.body
+    let { foodName, foodPrice,foodImage } = req.body
   let food = await Food.create({
     foodName,
     foodPrice,
-    foodImage: req.file.filename,
-
+    foodImage
 
   })
   await food.save()
